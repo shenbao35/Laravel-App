@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+//added namespace
+use App\Http\Requests\UserRequest;
+use App\User;
+use App\Role;
+//end
 use App\Http\Requests;
 
 class AdminUsersController extends Controller
@@ -16,8 +21,9 @@ class AdminUsersController extends Controller
     public function index()
     {
         //
-        //index.blade.php is in nested directories: admin>users
-        return view('admin.users.index');
+        //index.blade.php is in nested directories: admin>users       
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -27,8 +33,10 @@ class AdminUsersController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.users.create');
+        //cant use all() because it will return a collection, we want an array which is list
+        $roles = Role::lists('name','id')->all();
+        return view('admin.users.create', compact('roles'));
+        // return view('admin.users.create');
 
     }
 
@@ -38,9 +46,17 @@ class AdminUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        //must change the parameter to the created request called UserRequest
+
+        //check if it is receving data from the post
+        // return $request->all();
+
+        $input = $request->all();
+        User::create($input);
+        return redirect('/admin/users');
+
     }
 
     /**
@@ -64,8 +80,10 @@ class AdminUsersController extends Controller
      */
     public function edit($id)
     {
-        //
-        return view('admin.users.edit');
+        
+        $roles = Role::lists('name','id')->all();
+        $users = User::findOrFail($id);
+        return view('admin.users.edit', compact('users','roles'));
     }
 
     /**

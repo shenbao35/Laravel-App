@@ -52,3 +52,20 @@ Route::get('/admin', function () {
     // will look for a file called index in the admin folder
     return view('admin.index');
 });
+
+//check if the collective form is included in this project
+//go to config/app.php, if not then do this in the termimal
+//composer require laravelcollective/html or do this in the composer.json
+// "require": {
+//     "laravelcollective/html": "^5.2"
+//   },
+//and do composer uppdate
+//add providers and alises of collective form to config/app.php 
+
+//to prevent sending empty data into the database do
+//php artisan make:request RequestName
+//fix the parameter in store method in the controller
+
+//adding new column to the users table, cannot edit the migration file otherwise it will remove all the stored data
+//php artisan make:migration add_photo_id_to_users --table=users
+//modify added migration file
