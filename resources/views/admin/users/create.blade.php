@@ -21,13 +21,13 @@
   {!! Form::password('password',['class'=>'form-control']) !!}
 </div>
 <div class="form-group">
-  {!! Form::label('file','File:') !!}
-  {!! Form::file('file',['class'=>'form-control']) !!}
+  {!! Form::label('photo_id','Photo:') !!}
+  {!! Form::file('photo_id', null, ['class'=>'form-control']) !!}
 </div>
 <div class="form-group">
   {{-- gets the data from the database and then concatenate --}}
   {!! Form::label('role_id','Role:') !!}
-  {!! Form::select('role_id', array('' => 'Choose Options') + $role,null ,['class'=>'form-control']) !!}
+  {!! Form::select('role_id', array('' => 'Choose Options') + $roles,null ,['class'=>'form-control']) !!}
 </div>
 <div class="form-group">
   {!! Form::label('is_active','Status:') !!}
@@ -36,7 +36,7 @@
 <div class="form-group">
   {!! Form::submit('Create User',['class'=>'btn btn-primary']) !!}
 </div>
-
+{!! Form::close() !!}
 
 @include('include.validation')
 

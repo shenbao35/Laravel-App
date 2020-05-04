@@ -69,3 +69,7 @@ Route::get('/admin', function () {
 //adding new column to the users table, cannot edit the migration file otherwise it will remove all the stored data
 //php artisan make:migration add_photo_id_to_users --table=users
 //modify added migration file
+//dont forget to migrate
+
+//make a new model called Photo
+//modify photo migration file
