@@ -54,7 +54,9 @@
 
       {{-- alternative delete button --}}
       <td>
-        {!! Form::submit('Delete',['class'=>'btn btn-primary']) !!}
+        {!! Form::button('<i class="fa fa-trash-o fa-1x" aria-hidden="true"></i>',['class'=>'btn btn-danger',
+        'type'=>'submit'])
+        !!}
       </td>
 
       {!! Form::close() !!}

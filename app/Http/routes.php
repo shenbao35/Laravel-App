@@ -89,7 +89,10 @@ Route::get('/admin', function () {
 //create a new middleware
 //php artisan make:middleware Admin
 //go to kernel.php to add a new middleware
-Route::group(['middleware' => ['admin','active']], function () {
+//admin = when user is admin, then it can access the admin/user route
+//active = when user is active then it can access the admin/user route
+//auth = when user is logged in then it can access the admin/user route
+Route::group(['middleware' => ['admin','active','auth']], function () {
     Route::resource('/admin/users', 'AdminUsersController');
 });
 
