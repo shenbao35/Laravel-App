@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UsersEditRequest;
 
 //added
+use App\Http\Requests\UsersEditRequest;
 use App\Http\Requests\UserRequest;
 use App\Photo;
 use App\Role;
@@ -39,6 +39,7 @@ class AdminUsersController extends Controller
     public function create()
     {
         //cant use Role::all() because it will return a collection, we need an array which is lists
+        //list or pluck are the same
         $roles = Role::lists('name','id')->all();
         return view('admin.users.create', compact('roles'));
 
@@ -52,25 +53,24 @@ class AdminUsersController extends Controller
      */
     public function store(UserRequest $request)
     {
+        // trim = remove all white spaces 
         if(trim($request->password) == ''){
-
             $input = $request->except('password');
-
-        } else{
+        }else{
             $input = $request->all();
             $input['password'] = bcrypt($request->password);
         }
 
-        if($file = $request->file('photo_id')) {
+        if($file = $request->file('photoId')){
             $name = time() . $file->getClientOriginalName();
-            $file->move('images', $name);
             $photo = Photo::create(['file'=>$name]);
             $input['photo_id'] = $photo->id;
+            $file->move('images', $name);
         }
         User::create($input);
         return redirect('/admin/users');
 
-        // to check the incoming data
+        // check the incoming data
         // return $request->all();
     }
 
@@ -96,8 +96,6 @@ class AdminUsersController extends Controller
         $user = User::findOrFail($id);
         $roles = Role::pluck('name','id')->all();
         return view('admin.users.edit', compact('user','roles'));
-
-
     }
 
     /**
@@ -125,6 +123,10 @@ class AdminUsersController extends Controller
         }
         $user->update($input);
         return redirect('/admin/users');
+
+
+        //check the incoming data
+        // return $request->all();
     }
 
     /**

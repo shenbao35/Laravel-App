@@ -69,7 +69,18 @@ Route::get('/admin', function () {
 //adding new column to the users table, cannot edit the migration file otherwise it will remove all the stored data
 //php artisan make:migration add_photo_id_to_users --table=users
 //modify added migration file
+//add the added column to the fillable field in the user model
 //dont forget to migrate
 
 //make a new model called Photo
 //modify photo migration file
+//make sure the form of create blade is a model and enable file
+
+
+//create a new request file
+//php artisan make:request UsersEditRequest
+//this new request is when the user is editing the profile and can successfully update it without entering the password
+
+
+//------------ctrl + shift + . ----------------------------
+//this will show all method in the class

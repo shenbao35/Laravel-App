@@ -1,3 +1,5 @@
+{{-- it is getting used using include command --}}
+
 {{-- validation error --}}
 {{-- count is predefined --}}
 @if (count($errors) > 0)

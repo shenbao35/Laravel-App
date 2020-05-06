@@ -5,7 +5,7 @@
 <h1>Create User</h1>
 {!! Form::open(['method'=>'POST','action'=>'AdminUsersController@store','files'=>true])!!}
 
-{{-- null on these forms are the default value, it can be set --}}
+{{-- null on these forms are the default value, it can be set to any default --}}
 <div class="form-group">
   {!! Form::label('name','Name:') !!}
   {!! Form::text('name',null,['class'=>'form-control']) !!}
@@ -13,7 +13,7 @@
 <div class="form-group">
   {!! Form::label('email','Email:') !!}
   {!! Form::email('email',null,['class'=>'form-control']) !!}
-  {{-- change the from type for the textbox --}}
+  {{-- change the form type for the textbox --}}
 </div>
 <div class="form-group">
   {{-- must remove null when using password type field --}}
@@ -21,8 +21,8 @@
   {!! Form::password('password',['class'=>'form-control']) !!}
 </div>
 <div class="form-group">
-  {!! Form::label('photo_id','Photo:') !!}
-  {!! Form::file('photo_id', null, ['class'=>'form-control']) !!}
+  {!! Form::label('photoLabel','Photo:') !!}
+  {!! Form::file('photoId', ['class'=>'form-control']) !!}
 </div>
 <div class="form-group">
   {{-- gets the data from the database and then concatenate --}}
