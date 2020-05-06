@@ -7,7 +7,7 @@ use Closure;
 //auth library
 use Illuminate\Support\Facades\Auth;
 
-class Admin
+class Active
 {
     /**
      * Handle an incoming request.
@@ -20,13 +20,12 @@ class Admin
     {
         //added code
         if(Auth::check()){
-            //user model has a method called isadmin
-            if(Auth::user()->isAdmin()){
+            //user model has a method called isactive
+            if(Auth::user()->isActive()){
                 //include Auth class before the  class
                 return $next($request);
             }
         }
         return redirect('/');
-
     }
 }

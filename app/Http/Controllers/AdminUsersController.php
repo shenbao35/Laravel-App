@@ -28,6 +28,7 @@ class AdminUsersController extends Controller
     {
         //index.blade.php is in nested directories: admin>users       
         $users = User::all();
+        // echo $users;
         return view('admin.users.index', compact('users'));
     }
 
@@ -51,7 +52,7 @@ class AdminUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+        public function store(UserRequest $request)
     {
         // trim = remove all white spaces 
         if(trim($request->password) == ''){
@@ -138,9 +139,7 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        unlink(public_path() . $user->photo->file);
         $user->delete();
-        Session::flash('deleted_user','The user has been deleted');
-        return redirect('/admin/users');
+        return redirect('/admin/users');        
     }
 }

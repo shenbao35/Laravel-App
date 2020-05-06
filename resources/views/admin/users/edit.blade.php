@@ -44,6 +44,7 @@
     <div class="form-group">
       {!! Form::submit('Update User',['class'=>'btn btn-primary']) !!}
     </div>
+    {!! Form::close() !!}
   </div>
 </div>
 <div class="row">

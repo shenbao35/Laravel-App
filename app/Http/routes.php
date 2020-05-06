@@ -29,7 +29,8 @@ Route::get('/home', 'HomeController@index');
 //check the user role by using tinker
 
 //create new controller, php artisan make:controller --resource AdminUsersController
-Route::resource('/admin/users', 'AdminUsersController');
+//moved this resource to a Route group down the page
+// Route::resource('/admin/users', 'AdminUsersController');
 
 //install node.js on the machine, we will be using gulp, it will help speed up the application when requesting something from the server
 //in cmd, npm install --global gulp
@@ -84,3 +85,16 @@ Route::get('/admin', function () {
 
 //------------ctrl + shift + . ----------------------------
 //this will show all method in the class
+
+//create a new middleware
+//php artisan make:middleware Admin
+//go to kernel.php to add a new middleware
+Route::group(['middleware' => ['admin','active']], function () {
+    Route::resource('/admin/users', 'AdminUsersController');
+});
+
+
+//add new methods in the user model for the middleware
+//modify admin middleware
+//creating a a custom 404 page in the views
+//

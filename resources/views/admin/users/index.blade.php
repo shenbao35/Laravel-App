@@ -20,6 +20,7 @@
       <th>Status</th>
       <th>Created</th>
       <th>Updated</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -34,12 +35,29 @@
       <td><a href="{{ route('admin.users.edit',$user->id) }}
       ">{{$user->name}}</td>
       <td>{{$user->email}}</td>
-      <td>{{$user->role->name}}</td>
+      <td>{{$user->role != null ? $user->role->name : 'No Role'}}</td>
 
       {{-- if else  --}}
       <td>{{$user->is_active == 1 ? 'Active' : 'Not Active'}}</td>
       <td>{{$user->created_at->diffForHumans()}}</td>
       <td>{{$user->updated_at->diffForHumans()}}</td>
+
+      {{-- new model for the delete button --}}
+      {!! Form::model($user, ['method'=>'DELETE','action'=>['AdminUsersController@destroy',$user->id]]) !!}
+
+      {{-- delete icon --}}
+      {{-- <td>
+        <a href="{{ route('admin.users.destroy',$user->id) }}">
+      <i class=" fa fa-trash-o fa-2x"></i>
+      </a>
+      </td> --}}
+
+      {{-- alternative delete button --}}
+      <td>
+        {!! Form::submit('Delete',['class'=>'btn btn-primary']) !!}
+      </td>
+
+      {!! Form::close() !!}
     </tr>
     @endforeach
     @endif
