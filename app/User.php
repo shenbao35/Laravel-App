@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Session;
 
 class User extends Authenticatable
 {
@@ -29,7 +30,7 @@ class User extends Authenticatable
         return $this->belongsTo('App\Role');
     }
 
-    // making relation betwee user and Photo
+    // making relation between user and Photo
     public function photo(){
         return $this->belongsTo('App\Photo');
     }

@@ -1,12 +1,27 @@
 @extends('layouts.admin');
-
 {{-- route list URI is admin/users --}}
+
+
+{{-- session condition --}}
 @section('content')
-{{-- <ul>
-  @foreach ($users->name as $user)
-  <li>{{ $user }}</li>
-@endforeach
-</ul> --}}
+@if (Session::has('deleted_user'))
+<div class="alert alert-danger">
+  <strong>{{ session('deleted_user') }}</strong>
+</div>
+@endif
+
+@if(Session::has('edited_user'))
+<div class="alert alert-success">
+  <strong>{{ session('edited_user') }}</strong>
+</div>
+@endif
+
+@if(Session::has('added_user'))
+<div class="alert alert-success">
+  <strong>{{ session('added_user') }} </strong>
+</div>
+@endif
+
 <h1>Users</h1>
 <table class="table">
   <thead>
@@ -44,15 +59,6 @@
 
       {{-- new model for the delete button --}}
       {!! Form::model($user, ['method'=>'DELETE','action'=>['AdminUsersController@destroy',$user->id]]) !!}
-
-      {{-- delete icon --}}
-      {{-- <td>
-        <a href="{{ route('admin.users.destroy',$user->id) }}">
-      <i class=" fa fa-trash-o fa-2x"></i>
-      </a>
-      </td> --}}
-
-      {{-- alternative delete button --}}
       <td>
         {!! Form::button('<i class="fa fa-trash-o fa-1x" aria-hidden="true"></i>',['class'=>'btn btn-danger',
         'type'=>'submit'])

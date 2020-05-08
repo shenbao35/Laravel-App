@@ -9,13 +9,13 @@ use App\Http\Requests\UserRequest;
 use App\Photo;
 use App\Role;
 use App\User;
+use Illuminate\Support\Facades\Session;
 //stop
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
@@ -68,6 +68,7 @@ class AdminUsersController extends Controller
             $input['photo_id'] = $photo->id;
             $file->move('images', $name);
         }
+        Session::flash('added_user','A user has been added');
         User::create($input);
         return redirect('/admin/users');
 
@@ -122,6 +123,7 @@ class AdminUsersController extends Controller
             $photo = Photo::create(['file'=>$name]);
             $input['photo_id'] = $photo->id;
         }
+        Session::flash('edited_user','The user has been updated');
         $user->update($input);
         return redirect('/admin/users');
 
@@ -138,8 +140,16 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
+        //these must be in order
+
         $user = User::findOrFail($id);
-        $user->delete();
+        //deleting images in the public folder
+        unlink(public_path() . $user->photo->file);
+        $photo = Photo::findOrFail($user->photo_id);
+        $photo->delete();
+        $user->delete();        
+        
+        Session::flash('deleted_user','A user has been deleted');
         return redirect('/admin/users');        
     }
 }

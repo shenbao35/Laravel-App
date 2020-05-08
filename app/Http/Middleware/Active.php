@@ -21,7 +21,7 @@ class Active
         //added code
         if(Auth::check()){
             //user model has a method called isactive
-            if(Auth::user()->isActive()){
+            if(Auth::user()->isActive()){                
                 //include Auth class before the  class
                 return $next($request);
             }

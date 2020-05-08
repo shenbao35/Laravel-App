@@ -94,10 +94,21 @@ Route::get('/admin', function () {
 //auth = when user is logged in then it can access the admin/user route
 Route::group(['middleware' => ['admin','active','auth']], function () {
     Route::resource('/admin/users', 'AdminUsersController');
+    Route::resource('/admin/posts', 'AdminPostsController');
+    
 });
 
 
 //add new methods in the user model for the middleware
-//modify admin middleware
+//modify admin middleware, and active middleware
 //creating a a custom 404 page in the views
-//
+//doing the index create and delete pages
+
+//to redirect to admin page right after the login
+//go to authcontroller.php and change redirect 
+
+//fix the 404 page
+
+//creating a post route in the resource group
+//crete a controller
+//php artisan make:controller --resource AdminPostsController
