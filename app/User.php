@@ -37,10 +37,15 @@ class User extends Authenticatable
 
     //method for middleware
     public function isAdmin(){
-        if($this->role->name == 'Administrator'){
-            return true;
+        //if a role is null therefore no name, then do the try catch
+        try {
+            if($this->role->name == 'Administrator'){
+                return true;
+            }
+            return false;
+        } catch (\Throwable $th) {
+            return false;
         }
-        return false;
     }
 
     public function isActive(){
@@ -49,4 +54,11 @@ class User extends Authenticatable
         }
         return false;        
     }
+    //end middleware
+
+    //user can have multiple post
+    public function post(){
+        return $this->hasMany('App\Post');
+    }
+
 }

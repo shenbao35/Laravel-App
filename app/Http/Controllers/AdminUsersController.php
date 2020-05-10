@@ -28,7 +28,6 @@ class AdminUsersController extends Controller
     {
         //index.blade.php is in nested directories: admin>users       
         $users = User::all();
-        // echo $users;
         return view('admin.users.index', compact('users'));
     }
 

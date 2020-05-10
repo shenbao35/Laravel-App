@@ -95,6 +95,16 @@ Route::get('/admin', function () {
 Route::group(['middleware' => ['admin','active','auth']], function () {
     Route::resource('/admin/users', 'AdminUsersController');
     Route::resource('/admin/posts', 'AdminPostsController');
+
+    //custom made
+    //resource with alias
+    Route::get('users/{id}/post/{id}', 'AdminPostsController@modal')->name('admin.posts.modal');
+    //or
+    // Route::get('users/{id}/posts/{id}', function ($userId,$postid) {
+    //     // return view('admin.include.modal');
+    //     return 'day';
+        
+    // })->name('admin.posts.modal');
     
 });
 
@@ -112,3 +122,11 @@ Route::group(['middleware' => ['admin','active','auth']], function () {
 //creating a post route in the resource group
 //crete a controller
 //php artisan make:controller --resource AdminPostsController
+//create post model
+//set the return view of the index method in AdminPostsController
+//php artisan make:model Post -m
+//modify the post migration file
+
+//create new request for post when creating data
+//php artisan make:request PostRequest
+
