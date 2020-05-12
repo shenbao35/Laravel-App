@@ -30,11 +30,6 @@ class AdminPostsController extends Controller
         return view('admin.posts.index', compact('posts'));  
     }
     
-    public function modal(){
-        return view('admin.include.modal');
-        //NOT SURE
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -48,6 +43,11 @@ class AdminPostsController extends Controller
         return view('admin.posts.create', compact('category'));
     }
 
+    public function view($userId,$postId){
+        $post = Post::find($postId);
+        $user =  $post->user;
+        return view('admin.posts.show', compact('user','post'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -79,9 +79,10 @@ class AdminPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($userId)
     {
-        //
+        echo $userId;
+
     }
 
     /**
@@ -93,6 +94,10 @@ class AdminPostsController extends Controller
     public function edit($id)
     {
         //
+        $post = Post::findOrFail($id);
+        $category = Category::pluck('name','id')->all(); 
+        return view('admin.posts.edit', compact('post','category'));
+        // return $post;
     }
 
     /**
@@ -105,6 +110,7 @@ class AdminPostsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return $request->all;
     }
 
     /**

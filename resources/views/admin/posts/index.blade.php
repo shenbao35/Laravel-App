@@ -18,14 +18,15 @@
       <th>Title</th>
       <th>Created</th>
       <th>Updated</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     @foreach ($posts as $post)
     <tr>
       <td>{{$post->id}}</td>
-
-      <td><a href="#">{{$post->user->name }}</a></td>
+      <td><a href="{{ route('admin.posts.view',[$post->user_id,$post->id]) }}
+      ">{{$post->user->name }}</a></td>
 
       <td>{{$post->category ? $post->category->name : "Uncategorized"}}</td>
       <td>{{$post->title}}</td>

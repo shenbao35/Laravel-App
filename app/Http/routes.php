@@ -98,7 +98,7 @@ Route::group(['middleware' => ['admin','active','auth']], function () {
 
     //custom made
     //resource with alias
-    Route::get('users/{id}/post/{id}', 'AdminPostsController@modal')->name('admin.posts.modal');
+    Route::get('admin/users/{userId}/posts/{postId}', 'AdminPostsController@view')->name('admin.posts.view');
     //or
     // Route::get('users/{id}/posts/{id}', function ($userId,$postid) {
     //     // return view('admin.include.modal');

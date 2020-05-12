@@ -59,6 +59,8 @@ class AdminUsersController extends Controller
         }else{
             $input = $request->all();
             $input['password'] = bcrypt($request->password);
+            //will upper case first letters
+            $input['name'] = ucfirst($request->name);
         }
 
         if($file = $request->file('photoId')){
@@ -83,7 +85,7 @@ class AdminUsersController extends Controller
      */
     public function show($id)
     {
-        return view('admin.uses.show');
+        return view('admin.users.show');
     }
 
     /**
@@ -114,6 +116,7 @@ class AdminUsersController extends Controller
         } else{
             $input = $request->all();
             $input['password'] = bcrypt($request->password);
+            $input['name'] = ucfirst($request->name);
         }
 
         if($file = $request->file('photo_id')){
@@ -139,15 +142,19 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        //these must be in order
-
-        $user = User::findOrFail($id);
-        //deleting images in the public folder
-        unlink(public_path() . $user->photo->file);
-        $photo = Photo::findOrFail($user->photo_id);
-        $photo->delete();
+        //if the user has no image, this code will throw an error, therefore use try catch 
+        try {
+            //code...
+            //these must be in order
+            $user = User::findOrFail($id);
+            //deleting images in the public folder
+            unlink(public_path() . $user->photo->file);
+            $photo = Photo::findOrFail($user->photo_id);
+            $photo->delete();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         $user->delete();        
-        
         Session::flash('deleted_user','A user has been deleted');
         return redirect('/admin/users');        
     }
